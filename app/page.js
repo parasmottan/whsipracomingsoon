@@ -60,7 +60,7 @@ const Page = () => {
             className="text-white drop-shadow-2xl md:mt-0 mt-20 lg:text-lg"
             style={nunito.style}
           >
-            We'll let you know when we launch!
+            We&apos;ll let you know when we launch!
           </h2>
         </div>
 

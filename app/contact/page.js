@@ -53,7 +53,7 @@ md:px-8 px-24 md:bg-[#DBBFE7] bg-gradient-to-r from-pink-300 via-pink-200 to-blu
             className="text-white drop-shadow-2xl md:mt-0 mt-[80vw] ml-3 lg:text-lg"
             style={nunito.style}
           >
-            We'll let you know when we launch!
+            We&apos;ll let you know when we launch!
           </h2>
       </div>
     </div>
