@@ -1,32 +1,30 @@
-import React from 'react'
-import Image from 'next/image'
-import Navbar from './components/Navbar'
-import { Baloo_Paaji_2 } from 'next/font/google'
-import { Nunito_Sans } from 'next/font/google'
-import Input from './components/Input'
+import React from "react";
+import Image from "next/image";
+import Navbar from "./components/Navbar";
+import { Baloo_Paaji_2 } from "next/font/google";
+import { Nunito_Sans } from "next/font/google";
+import Input from "./components/Input";
 
 const baloo = Baloo_Paaji_2({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-})
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+});
 
 const nunito = Nunito_Sans({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-})
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+});
 
 const Page = () => {
   return (
     <div className="w-full h-[100dvh] relative flex items-center justify-center">
       <Image
         src="/bgcover.jpg"
-        alt="Description"
-        className="absolute inset-0 -z-10"
+        alt="Background Cover"
+        className="absolute inset-0 -z-10 object-cover object-center"
         draggable="false"
-        objectPosition="center"
-        objectFit="cover"
-        loading="lazy"
-        layout="fill"
+        fill
+        priority
       />
 
       {/* Glass Container */}
@@ -48,7 +46,7 @@ const Page = () => {
           </h1>
 
           <h2
-            className="text-white drop-shadow-2xl lg:text-[2vw]  font-semibold"
+            className="text-white drop-shadow-2xl lg:text-[2vw] font-semibold"
             style={nunito.style}
           >
             Anonymous, safe mental health chat. Coming soon.
@@ -75,7 +73,7 @@ const Page = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;
