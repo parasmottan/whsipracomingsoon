@@ -4,36 +4,40 @@ import React, { useState } from "react";
 function Input() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [showBox, setShowBox] = useState(false); // control box visibility
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  // Simple email regex
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (!emailRegex.test(email)) {
-    setMessage("Please enter a valid email address.");
-    return;
-  }
+    if (!emailRegex.test(email)) {
+      setMessage("Please enter a valid email address.");
+      setShowBox(true); // show box on invalid email too
+      return;
+    }
 
-  try {
-    const res = await fetch('https://whisprabackcomm-production.up.railway.app/api/subscribe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email })
-    });
+    try {
+      const res = await fetch(
+        "https://whisprabackcomm-production.up.railway.app/api/subscribe",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
 
-    const data = await res.json();
-    setMessage(data.message);
-
-  } catch (err) {
-    console.log("Error:", err);
-    setMessage("Something went wrong. Please try again later.");
-  }
-};
-
+      const data = await res.json();
+      setMessage(data.message);
+      setShowBox(true); // show box when response comes
+    } catch (err) {
+      console.log("Error:", err);
+      setMessage("Something went wrong. Please try again later.");
+      setShowBox(true); // show box even if error
+    }
+  };
 
   return (
     <div className="drop-shadow-2xl lg:w-[40%] w-[90vw] lg:h-auto rounded-full relative">
@@ -43,7 +47,7 @@ function Input() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="drop-shadow-2xl w-full lg:p-5 p-3 outline-none text-lg pl-7 text-gray-300 bg-white rounded-full"
+          className="drop-shadow-2xl w-full lg:p-5 p-3 outline-none text-lg pl-7 text-gray-400 bg-white rounded-full"
           placeholder="Enter your email..."
         />
 
@@ -55,10 +59,26 @@ function Input() {
         />
       </form>
 
-      {/* Message fixed below, no layout shift */}
-      <div className="h-6 mt-2 flex items-center justify-center">
-        {message && <p className="text-pink-700 text-sm">{message}</p>}
-      </div>
+      {/* Centered Box (only when showBox is true) */}
+      {showBox && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div
+            className="p-8 rounded-4xl shadow-xl
+            bg-white/100 backdrop-blur-xl
+            border-2 border-white/90 
+            w-[100vw] sm:w-[70vw] md:w-[50vw] lg:w-[100vw] 
+            h-auto flex flex-col overflow-hidden relative text-center animate-[zoomIn_0.3s_ease]"
+          >
+            <i
+              className="ri-close-line text-5xl text-[#B2A6E2] absolute right-4 top-5 cursor-pointer"
+              onClick={() => setShowBox(false)} // close on click
+            ></i>
+            {message && (
+              <p className="text-[#B2A6E2] text-xl sm:text-2xl mt-10">{message}</p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
