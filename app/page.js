@@ -12,7 +12,7 @@ const Page = () => {
 
     try {
       const res = await fetch(
-        "https://whisprabackcomm.onrender.com//api/subscribe",
+        "https://whisprabackcomm.onrender.com/api/subscribe",
         {
           method: "POST",
           headers: {
